@@ -22,7 +22,7 @@ or
 
 ``` bash
 $ conda config --add channels conda-forge
-$ conda install cookiecutter
+$ conda install -y cookiecutter
 ```
 
 ### To start a new project, run:

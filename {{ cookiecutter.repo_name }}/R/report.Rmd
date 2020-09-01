@@ -1,6 +1,6 @@
 ---
 title : "{{ cookiecutter.repo_name }}"
-author: "{{ cookiecutter.author }}"
+author: "{{ cookiecutter.author_name }}"
 date: "`r as.Date(Sys.time())`"
 output:
   html_document:
