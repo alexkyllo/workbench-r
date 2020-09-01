@@ -1,20 +1,13 @@
 include .env
 export
 
-.PHONY: clean data lint requirements sync_data_to_s3 sync_data_from_s3
-
-#################################################################################
-# GLOBALS                                                                       #
-#################################################################################
-
-BLOB_ACCOUNT = {{ cookiecutter.azure_blob_container }}
-PROJECT_NAME = {{ cookiecutter.repo_name }}
+.PHONY: data style requirements
 
 #################################################################################
 # COMMANDS                                                                      #
 #################################################################################
 
-## Make Dataset
+## Make the dataset by running queries
 data: data/processed/processed_data.csv
 
 data/raw/raw_data.csv: R/get.R
@@ -23,14 +16,14 @@ data/raw/raw_data.csv: R/get.R
 data/processed/processed_data.csv: R/clean.R data/raw/raw_data.csv
 	Rscript $<
 
-## Format using styler
-fmt:
+## Format R code using styler
+style:
 	Rscript -e "library(styler); style_dir('./R')"
 
 ## Set up python interpreter environment
 environment:
-	conda create --name $(PROJECT_NAME) --file environment.yml
-	@echo ">>> New conda env created. Activate with:\nsource activate $(PROJECT_NAME)"
+	conda create --name $(REPO_NAME) --file environment.yml
+	@echo ">>> New conda env created. Activate with:\nsource activate $(REPO_NAME)"
 
 #################################################################################
 # PROJECT RULES                                                                 #

@@ -1,7 +1,8 @@
 {
-    "project_name": "project_name",
-    "repo_name": "project directory name",
-    "author_name": "Your name",
-    "description": "A short description of the project.",
-    "azure_blob_container": "[OPTIONAL] your-container-url-for-syncing-data"
+  "project_name": "project_name",
+  "repo_name": "project directory name",
+  "author_name": "Your name",
+  "description": "A short description of the project.",
+  "blob_account": "[OPTIONAL] your-azure-blob-storage-account-name",
+  "blob_container": "[OPTIONAL] your-azure-blob-storage-container-name"
 }

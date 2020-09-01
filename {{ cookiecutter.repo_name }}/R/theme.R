@@ -1,4 +1,5 @@
-## Theme for ggplot2
+## theme.R
+## Style theme for ggplot2 plots
 
 #' Blue and gray scale categorical color palettes
 #'

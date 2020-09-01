@@ -7,5 +7,6 @@ dependencies:
   - r_env
   - r-essentials
   - r-base
-  - r-tidyverse
-  - r-irkernel
+  - r-styler
+  - r-here
+  - r-dotenv
