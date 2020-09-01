@@ -1,11 +1,10 @@
-{{cookiecutter.repo_name}}
-==============================
+# {{cookiecutter.repo_name}}
 
 {{cookiecutter.description}}
 
-Project Organization
-------------
+## Project Organization
 
+```
     ├── R/                 <- R source code for use in this project.
     │   ├── clean.R        <- Clean data in data/raw/ and output result to /data/processed
     │   ├── explore.R      <- Exploratory data analysis script for interactive work
@@ -35,6 +34,15 @@ Project Organization
     ├── README.md          <- The top-level README for developers using this project.
     └── environment.yml    <- conda environment configuration file.
 
---------
+```
+
+## Installing
+
+One-time setup 
+
+```sh
+make environment
+make install
+```
 
 <p><small>Project based on the <a target="_blank" href="https://github.com/alexkyllo/workbench-r">workbench-r cookiecutter project template</a></small></p>

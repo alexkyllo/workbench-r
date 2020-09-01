@@ -55,8 +55,8 @@ environment:
 	@echo ">>> Conda env created. Activate with:\nconda activate $(REPO_NAME)"
 
 ## Install the R packages
-install:  R/install.R environment
-	conda activate $(REPO_NAME) && Rscript $<
+install:  R/install.R
+	Rscript $<
 
 #################################################################################
 # PROJECT RULES                                                                 #
@@ -86,10 +86,10 @@ data: data/processed/processed_data.csv
 # $^ is all of the prerequisites in the list
 # $@ is the target name
 # So this recipe will run `Rscript R/clean.R`.
-data/processed/processed_data.csv.gz: R/clean.R data/raw/raw_data.csv
+data/processed/processed_data.csv: R/clean.R data/raw/raw_data.csv
 	Rscript $<
 
-data/raw/raw_data.csv.gz: R/get.R queries/query.csl
+data/raw/raw_data.csv: R/get.R queries/query.csl
 	Rscript $<
 
 # A recipe for a trained ML model.

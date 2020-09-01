@@ -21,7 +21,7 @@ database <- "Samples"
 query_file <- here("queries/query.csl")
 prefix <- paste0(repo_name, "/raw_data")
 dest <- here("data/raw")
-gzip <- TRUE
+gzip <- FALSE
 
 ## Run the query on Kusto, export the data to Azure Blob Storage,
 ## and download the CSV file to data/raw/
@@ -31,7 +31,7 @@ get_data_from_kusto_via_blob(
   query_file,
   blob_account,
   blob_container,
-  blob_access_key,
+  blob_key,
   prefix,
   dest,
   gzip

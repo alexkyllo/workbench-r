@@ -4,7 +4,6 @@ channels:
   - defaults
   - r
 dependencies:
-  - r_env
   - r-essentials
   - r-base
   - r-styler
