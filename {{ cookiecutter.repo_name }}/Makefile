@@ -1,20 +1,49 @@
+# Makefile
+# This is an example Makefile to help you get familiar with GNU Make
+# and get started with using it to automate your project build tasks.
+# For the full GNU Make manual, see:
+# https://www.gnu.org/software/make/manual/make.html
+#
+# A Makefile consists of rules, which take following form:
+# target … : prerequisites …
+#        recipe
+#        …
+#        …
+#
+# Multiple targets and prerequisites are separated by spaces;
+# multiple recipes are separated by newlines.
+#
+# If the target file exists, and the file has not been modified since any
+# of its prerequisite files were last modified, the rule will be skipped.
+# This means that it won't redo any work that it doesn't need to!
+#
+# Some things to note:
+# - Indentation must be tabs--Make will error if you use spaces.
+# - To break a long line, use a backslash: \
+# - If you just type "make" at the command line in the directory
+# where the Makefile is, it will run the first recipe
+# (after running its prerequisites).
+# - Other than that, the ordering of the rules in the file doesn't matter.
+# Make builds a dependency graph and performs a topological sort to determine
+# the correct rule execution order.
+# - If you type "make {rule name}" it will run that specific rule name
+# (again, after running its prerequisites).
+# - If you type "make -n" it will tell you what it's going to run without
+# actually running it (a dry run).
+#
+# This includes your .env file variables in the Makefile
 include .env
 export
 
-.PHONY: data style requirements
-
+# Rules can either be file names (a rule for producing a file)
+# or just task names that aren't files, called "phony rules."
+# List any phony rules here so that Make knows not to look for
+# files by these names:
+.PHONY: style environment install data figures reports
+#
 #################################################################################
 # COMMANDS                                                                      #
 #################################################################################
-
-## Make the dataset by running queries
-data: data/processed/processed_data.csv
-
-data/raw/raw_data.csv: R/get.R
-	Rscript $<
-
-data/processed/processed_data.csv: R/clean.R data/raw/raw_data.csv
-	Rscript $<
 
 ## Format R code using styler
 style:
@@ -22,13 +51,62 @@ style:
 
 ## Set up python interpreter environment
 environment:
-	conda create --name $(REPO_NAME) --file environment.yml
-	@echo ">>> New conda env created. Activate with:\nsource activate $(REPO_NAME)"
+	conda env create -f environment.yml || conda env update -f environment.yml
+	@echo ">>> Conda env created. Activate with:\nconda activate $(REPO_NAME)"
+
+## Install the R packages
+install:  R/install.R environment
+	conda activate $(REPO_NAME) && Rscript $<
 
 #################################################################################
 # PROJECT RULES                                                                 #
 #################################################################################
 
+## A rule to run all the project tasks
+all: install data figures reports
+
+## Render the HTML report
+reports: reports/report.html
+
+## Plot figures
+figures: figures/scatter_plot.png
+
+## Make the dataset by running queries
+data: data/processed/processed_data.csv
+
+# A recipe for a processed data file.
+# This recipe says that
+# data/processed/processed_data.csv
+# depends on
+# R/get_data.R and data/raw/raw_data.csv.
+# The recipe to make it is: Rscript $<
+# Rscript runs R scripts from the command line.
+# $< is shorthand for "the first prerequisite in the list."
+# Others to know are:
+# $^ is all of the prerequisites in the list
+# $@ is the target name
+# So this recipe will run `Rscript R/clean.R`.
+data/processed/processed_data.csv.gz: R/clean.R data/raw/raw_data.csv
+	Rscript $<
+
+data/raw/raw_data.csv.gz: R/get.R queries/query.csl
+	Rscript $<
+
+# A recipe for a trained ML model.
+models/model.Rds data/processed/test_data.csv &: R/model/train.R data/processed/processed_data.csv
+	Rscript $<
+
+# A recipe for scoring the model on test data.
+data/processed/scored_data.csv: R/model/score.R data/processed/test_data.csv
+	Rscript $<
+
+# A recipe for a visualization.
+figures/scatter_plot.png : R/plot.R data/processed/scored_data.csv
+	Rscript $<
+
+# A recipe for an HTML report.
+reports/report.html : R/render.R R/report.Rmd figures/scatter_plot.png
+	Rscript $<
 
 
 #################################################################################

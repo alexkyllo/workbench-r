@@ -3,7 +3,7 @@
 ## the data interactively and then use other script files to automate
 ## steps and make your analysis reproducible.
 
-library(here)
-library(dotenv)
+suppressMessages(library(here))
+suppressMessages(library(dotenv))
 
 load_dot_env()

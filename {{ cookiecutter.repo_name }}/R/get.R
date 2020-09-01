@@ -2,10 +2,8 @@
 ## Run query on source database and export results to Blob Storage
 ## Then download the file from blob storage to data/raw/
 
-library(here)
-library(dotenv)
-library(AzureKusto)
-library(AzureStor)
+suppressMessages(library(here))
+suppressMessages(library(dotenv))
 
 source(here("R/utilities.R"))
 
@@ -21,7 +19,6 @@ blob_key <- Sys.getenv("BLOB_KEY")
 server <- "help"
 database <- "Samples"
 query_file <- here("queries/query.csl")
-data_file <- here("data/raw/raw_data.csv")
 prefix <- paste0(repo_name, "/raw_data")
 dest <- here("data/raw")
 gzip <- TRUE

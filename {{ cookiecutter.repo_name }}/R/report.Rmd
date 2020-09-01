@@ -1,18 +1,38 @@
 ---
-author: {{ cookiecutter.author }}
+title : "{{ cookiecutter.repo_name }}"
+author: "{{ cookiecutter.author }}"
+date: "`r as.Date(Sys.time())`"
 output:
   html_document:
-    toc: true
-    toc_float: true
-    toc_depth: 3
     df_print: paged
-    includes:
-      in_header: logo.html
-  pdf_document:
-    df_print: kable
-    toc: true
-    toc_depth: 3
+    theme: flatly
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+    number_sections: no
 ---
+<style>
+body{
+  font-family: Segoe UI;
+  font-size: 12pt;
+}
 
-```{r echo=FALSE}
+This report demonstrates what you can do with the workbench project template.
+
+I fitted a linear model. It isn't a very good model, but that's not the point.
+
+Scatter plot!
+
+![Scatter plot](../figures/scatter_plot.png)
+
+Here is a summary of the model features (there's only one):
+
+```{r echo = FALSE, message = FALSE, error = FALSE, warning = FALSE}
+
+model <- readRDS(here("models/model.Rds"))
+
+suppressMessages(library(broom))
+
+tidy(model)
+
 ```
