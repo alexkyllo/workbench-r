@@ -1,0 +1,18 @@
+---
+author: {{ cookiecutter.author }}
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    df_print: paged
+    includes:
+      in_header: logo.html
+  pdf_document:
+    df_print: kable
+    toc: true
+    toc_depth: 3
+---
+
+```{r echo=FALSE}
+```

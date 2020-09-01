@@ -1,0 +1,11 @@
+name: {{ cookiecutter.repo_name }}
+channels:
+  - conda-forge
+  - defaults
+  - r
+dependencies:
+  - r_env
+  - r-essentials
+  - r-base
+  - r-tidyverse
+  - r-irkernel
