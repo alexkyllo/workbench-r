@@ -49,7 +49,7 @@ export
 style:
 	Rscript -e "library(styler); style_dir('./R')"
 
-## Set up python interpreter environment
+## One-time conda environment setup
 environment:
 	conda env create -f environment.yml || conda env update -f environment.yml
 	@echo ">>> Conda env created. Activate with:\nconda activate $(REPO_NAME)"

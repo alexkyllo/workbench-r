@@ -1,7 +1,7 @@
 ## Install packages from CRAN that are not available from conda
 packages <- c("AzureKusto", "AzureStor")
 
-cat("Installing additional R packages from R/install.R\n")
+cat("Installing additional packages from CRAN using R/install.R\n")
 
 installed <- lapply(packages, FUN = function(x) {
   cat(glue::glue("Checking for package {x}...\n"))
@@ -13,3 +13,4 @@ installed <- lapply(packages, FUN = function(x) {
 })
 
 cat("Done.\n")
+
