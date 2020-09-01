@@ -4,5 +4,6 @@
   "author_name": "Your name",
   "description": "A short description of the project.",
   "blob_account": "[OPTIONAL] your-azure-blob-storage-account-name",
-  "blob_container": "[OPTIONAL] your-azure-blob-storage-container-name"
+  "blob_container": "[OPTIONAL] your-azure-blob-storage-container-name",
+  "blob_key": "[OPTIONAL] your-azure-blob-storage-account-access-key"
 }
