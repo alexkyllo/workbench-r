@@ -3,7 +3,7 @@ suppressMessages(library(here))
 suppressMessages(library(glue))
 suppressMessages(library(rmarkdown))
 
-report_input <- here("R/write/report.Rmd")
+report_input <- here("R/report.Rmd")
 report_output <- here("reports/report.html")
 
 cat(glue("Rendering report {report_input}...\n"))

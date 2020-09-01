@@ -63,7 +63,7 @@ install:  R/install.R
 #################################################################################
 
 ## A rule to run all the project tasks
-all: install data figures reports
+all: install data models figures reports
 
 ## Render the HTML report
 reports: reports/report.html
@@ -73,6 +73,9 @@ figures: figures/scatter_plot.png
 
 ## Make the dataset by running queries
 data: data/processed/processed_data.csv
+
+## Train and score models
+models: models/model.Rds
 
 # A recipe for a processed data file.
 # This recipe says that
@@ -93,11 +96,11 @@ data/raw/raw_data.csv: R/get.R queries/query.csl
 	Rscript $<
 
 # A recipe for a trained ML model.
-models/model.Rds data/processed/test_data.csv &: R/model/train.R data/processed/processed_data.csv
+models/model.Rds data/processed/test_data.csv &: R/train.R data/processed/processed_data.csv
 	Rscript $<
 
 # A recipe for scoring the model on test data.
-data/processed/scored_data.csv: R/model/score.R data/processed/test_data.csv
+data/processed/scored_data.csv: R/score.R data/processed/test_data.csv
 	Rscript $<
 
 # A recipe for a visualization.

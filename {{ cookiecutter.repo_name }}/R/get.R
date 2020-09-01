@@ -19,20 +19,28 @@ blob_key <- Sys.getenv("BLOB_KEY")
 server <- "help"
 database <- "Samples"
 query_file <- here("queries/query.csl")
-prefix <- paste0(repo_name, "/raw_data")
+prefix <- "raw_data"
 dest <- here("data/raw")
 gzip <- FALSE
 
 ## Run the query on Kusto, export the data to Azure Blob Storage,
 ## and download the CSV file to data/raw/
 get_data_from_kusto_via_blob(
-  server,
-  database,
-  query_file,
-  blob_account,
-  blob_container,
-  blob_key,
-  prefix,
-  dest,
-  gzip
+  server = server,
+  database = database,
+  query_file = query_file,
+  account = blob_account,
+  container = blob_container,
+  key = blob_key,
+  folder = repo_name,
+  prefix = prefix,
+  dest = dest,
+  gzip = gzip
 )
+
+rename_from = paste0(dest, "/", prefix, "_1.csv")
+rename_to = paste0(dest, "/", prefix, ".csv")
+
+if (file.exists(rename_to)) file.remove(rename_to)
+
+renamed <- file.rename(from = rename_from, to = rename_to)

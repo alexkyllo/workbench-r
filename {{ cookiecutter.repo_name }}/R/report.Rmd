@@ -16,6 +16,7 @@ body{
   font-family: Segoe UI;
   font-size: 12pt;
 }
+</style>
 
 This report demonstrates what you can do with the workbench project template.
 

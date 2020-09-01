@@ -12,20 +12,20 @@
 #' if the extension is ".csv.gz" for example
 get_data_from_kusto <- function(server, database, query_file, data_file) {
   cat(glue::glue("Connecting to Kusto cluster('{server}')
-.database('{database}')..."))
+.database('{database}')...\n"))
   server_url <- glue::glue("https://{server}.kusto.windows.net/")
   endpoint <- AzureKusto::kusto_database_endpoint(
     server = server_url,
     database = database
   )
 
-  cat(glue::glue("Running {query_file}..."))
+  cat(glue::glue("Running {query_file}...\n"))
 
   query <- readr::read_file(query_file)
   result <- AzureKusto::run_query(endpoint, query)
   cat(paste0("Done.\n"))
 
-  cat(glue::glue("Writing results to {data_file}..."))
+  cat(glue::glue("Writing results to {data_file}...\n"))
   dir.create(dirname(data_file), showWarnings = FALSE)
   readr::write_csv(result, data_file)
   cat(paste0("Done.\n"))
@@ -35,9 +35,10 @@ get_data_from_kusto <- function(server, database, query_file, data_file) {
 #' @param account The Azure Blob Storage account name
 #' @param container The Azure Blob Storage container name
 #' @param key Your Azure Blob Storage access key
+#' @param folder The Azure Blob Storage folder name to export to
 #' @param prefix The file name prefix for the files to download.
 #' @param dest The local path to write the data file to.
-get_data_from_blob <- function(account, container, key, prefix, dest) {
+get_data_from_blob <- function(account, container, key, folder, prefix, dest) {
   url <- glue::glue("https://{account}.blob.core.windows.net/{container}")
   cat(
     glue::glue(
@@ -48,7 +49,7 @@ get_data_from_blob <- function(account, container, key, prefix, dest) {
   blob_names <- AzureStor::list_blobs(blob)$name
   dir.create(dest, showWarnings = FALSE)
   AzureStor::multidownload_blob(blob,
-    paste0(prefix, "*.*"),
+    paste0(folder, "/", prefix, "*.*"),
     dest,
     overwrite = TRUE
   )
@@ -65,10 +66,10 @@ make_export_query <- function(query_file, url, prefix, key, gzip=FALSE) {
   query <- readr::read_file(query_file)
   compressed <- ifelse(gzip, "compressed", "")
   export_query <- glue::glue('.export {compressed} to csv
-(h@"{url}/{prefix};{key}")
+(h@"{url};{key}")
 with(
     sizeLimit=1073741824,
-    namePrefix={prefix},
+    namePrefix="{prefix}",
     fileExtension=csv,
     includeHeaders=firstFile,
     encoding=UTF8NoBOM,
@@ -108,6 +109,7 @@ concatenate_files <- function(prefix, dest) {
 #' @param account The Azure Blob Storage account name
 #' @param container The Azure Blob Storage container name
 #' @param key Your Azure Blob Storage access key
+#' @param folder The Azure Blob Storage folder name to export to
 #' @param prefix The file name prefix for the files to download.
 #' @param gzip Whether you want to gzip compress the data file or not.
 export_data_from_kusto_to_blob <- function(server,
@@ -116,10 +118,11 @@ export_data_from_kusto_to_blob <- function(server,
                                            account,
                                            container,
                                            key,
+                                           folder,
                                            prefix,
                                            gzip=FALSE) {
   server_url <- glue::glue("https://{server}.kusto.windows.net/")
-  url <- glue::glue("https://{account}.blob.core.windows.net/{container}")
+  url <- glue::glue("https://{account}.blob.core.windows.net/{container}/{folder}")
   cat(glue::glue("Running {query_file} and exporting to {url}...\n"))
 
   endpoint <- AzureKusto::kusto_database_endpoint(
@@ -141,6 +144,7 @@ export_data_from_kusto_to_blob <- function(server,
 #' @param account The Azure Blob Storage account name
 #' @param container The Azure Blob Storage container name
 #' @param key Your Azure Blob Storage access key
+#' @param folder The Azure Blob Storage folder name to export to
 #' @param prefix The file name prefix for the files to download.
 #' @param dest The local path to write the data file to.
 #' @param gzip Whether you want to gzip compress the data file or not.
@@ -150,6 +154,7 @@ get_data_from_kusto_via_blob <- function(server,
                                          account,
                                          container,
                                          key,
+                                         folder,
                                          prefix,
                                          dest,
                                          gzip=FALSE) {
@@ -159,7 +164,8 @@ get_data_from_kusto_via_blob <- function(server,
                                  account,
                                  container,
                                  key,
+                                 folder,
                                  prefix,
                                  gzip)
-  get_data_from_blob(account, container, key, prefix, dest)
+  get_data_from_blob(account, container, key, folder, prefix, dest)
 }

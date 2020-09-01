@@ -8,7 +8,7 @@ suppressMessages(library(ggplot2))
 suppressMessages(library(scales))
 
 
-source(here("R/visualize/msft_ggtheme.R"))
+source(here("R/theme.R"))
 
 input_file <- here("data/processed/scored_data.csv")
 model_file <- here("models/model.Rds")
