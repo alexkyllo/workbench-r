@@ -21,4 +21,3 @@ cat("Done.\n")
 cat(glue::glue("Writing scored test data to {output_file}...\n"))
 write_csv(test_data, output_file)
 cat("Done.\n")
-

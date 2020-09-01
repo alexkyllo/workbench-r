@@ -38,8 +38,8 @@ get_data_from_kusto_via_blob(
   gzip = gzip
 )
 
-rename_from = paste0(dest, "/", prefix, "_1.csv")
-rename_to = paste0(dest, "/", prefix, ".csv")
+rename_from <- paste0(dest, "/", prefix, "_1.csv")
+rename_to <- paste0(dest, "/", prefix, ".csv")
 
 if (file.exists(rename_to)) file.remove(rename_to)
 

@@ -13,4 +13,3 @@ installed <- lapply(packages, FUN = function(x) {
 })
 
 cat("Done.\n")
-

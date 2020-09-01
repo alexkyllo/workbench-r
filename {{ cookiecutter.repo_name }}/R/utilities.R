@@ -62,7 +62,7 @@ get_data_from_blob <- function(account, container, key, folder, prefix, dest) {
 #' @param prefix The filename prefix to name the exported file.
 #' @param key Your Azure Blob Storage access key
 #' @param gzip Whether you want to gzip compress the data file or not.
-make_export_query <- function(query_file, url, prefix, key, gzip=FALSE) {
+make_export_query <- function(query_file, url, prefix, key, gzip = FALSE) {
   query <- readr::read_file(query_file)
   compressed <- ifelse(gzip, "compressed", "")
   export_query <- glue::glue('.export {compressed} to csv
@@ -120,7 +120,7 @@ export_data_from_kusto_to_blob <- function(server,
                                            key,
                                            folder,
                                            prefix,
-                                           gzip=FALSE) {
+                                           gzip = FALSE) {
   server_url <- glue::glue("https://{server}.kusto.windows.net/")
   url <- glue::glue("https://{account}.blob.core.windows.net/{container}/{folder}")
   cat(glue::glue("Running {query_file} and exporting to {url}...\n"))
@@ -157,15 +157,17 @@ get_data_from_kusto_via_blob <- function(server,
                                          folder,
                                          prefix,
                                          dest,
-                                         gzip=FALSE) {
-  export_data_from_kusto_to_blob(server,
-                                 database,
-                                 query_file,
-                                 account,
-                                 container,
-                                 key,
-                                 folder,
-                                 prefix,
-                                 gzip)
+                                         gzip = FALSE) {
+  export_data_from_kusto_to_blob(
+    server,
+    database,
+    query_file,
+    account,
+    container,
+    key,
+    folder,
+    prefix,
+    gzip
+  )
   get_data_from_blob(account, container, key, folder, prefix, dest)
 }

@@ -26,6 +26,7 @@
     ├── queries/           <- SQL and Kusto (Azure Data Explorer) queries used to retrive data
     ├── references/        <- Data dictionaries, manuals, and all other explanatory materials
     ├── reports/           <- Generated analysis as HTML, PDF, DOCX, etc.
+    ├── .Rprofile          <- R-specific configuration, like CRAN mirror selection
     ├── .env               <- Environment variables including configurations and any secret keys
     ├── .gitignore         <- List of file patterns for Git to ignore from version control
     ├── .here              <- Tells the "here" package that this is the project root directory
