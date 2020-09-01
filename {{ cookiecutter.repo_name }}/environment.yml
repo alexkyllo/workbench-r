@@ -10,3 +10,4 @@ dependencies:
   - r-styler
   - r-here
   - r-dotenv
+  - r-glue

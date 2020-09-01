@@ -1,5 +1,6 @@
-## theme.R
-## Style theme for ggplot2 plots
+##' theme.R
+##' @author Nancy Organ
+##  A minimal style theme for ggplot2 plots
 
 #' Blue and gray scale categorical color palettes
 #'

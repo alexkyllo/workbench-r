@@ -32,11 +32,10 @@ get_data_from_kusto_via_blob(
   server,
   database,
   query_file,
-  data_file,
   blob_account,
   blob_container,
-  prefix,
   blob_access_key,
+  prefix,
   dest,
   gzip
 )

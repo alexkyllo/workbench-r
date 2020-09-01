@@ -1,0 +1,17 @@
+cluster('help').database('Samples').StormEvents
+| project
+    StartTime,
+    EndTime,
+    EpisodeId,
+    EventId,
+    State,
+    EventType,
+    InjuriesDirect,
+    InjuriesIndirect,
+    DeathsDirect,
+    DeathsIndirect,
+    DamageProperty,
+    DamageCrops,
+    Source,
+    BeginLocation,
+    EndLocation
