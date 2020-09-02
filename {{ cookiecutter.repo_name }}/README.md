@@ -6,7 +6,7 @@
 
 ```
     ├── R/                 <- R source code for use in this project.
-    │   ├── clean.R        <- Clean data in data/raw/ and output result to /data/processed
+    │   ├── clean.R        <- Clean data in data/raw/ and output result to data/processed
     │   ├── explore.R      <- Exploratory data analysis script for interactive work
     │   ├── get.R          <- Script to get data from the source
     │   ├── install.R      <- Script to install R packages (that are not available from conda)
