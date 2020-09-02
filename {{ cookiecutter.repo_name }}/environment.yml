@@ -4,9 +4,10 @@ channels:
   - defaults
   - r
 dependencies:
-  - r-essentials
-  - r-base
-  - r-styler
-  - r-here
+  - r-base>=4.0
   - r-dotenv
+  - r-essentials
   - r-glue
+  - r-here
+  - r-optparse
+  - r-styler
