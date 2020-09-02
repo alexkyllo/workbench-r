@@ -4,10 +4,13 @@ channels:
   - defaults
   - r
 dependencies:
-  - r-base>=4.0
+  - r-base
   - r-dotenv
-  - r-essentials
+  - r-dplyr
+  - r-ggplot2
   - r-glue
   - r-here
   - r-optparse
+  - r-readr
+  - r-scales
   - r-styler
