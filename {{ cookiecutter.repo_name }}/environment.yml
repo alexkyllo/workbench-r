@@ -4,13 +4,33 @@ channels:
   - defaults
   - r
 dependencies:
+  - r-DBI
   - r-base
+  - r-bit64
+  - r-broom
+  - r-cpp11
   - r-dotenv
   - r-dplyr
   - r-ggplot2
   - r-glue
   - r-here
+  - r-httr
+  - r-jose
+  - r-jsonlite
+  - r-knitr
+  - r-mime
+  - r-openssl
   - r-optparse
+  - r-r6
+  - r-rappdirs
   - r-readr
+  - r-rlang
+  - r-rmarkdown
   - r-scales
   - r-styler
+  - r-testthat
+  - r-tibble
+  - r-tidyr
+  - r-tidyselect
+  - r-uuid
+  - r-xml2
